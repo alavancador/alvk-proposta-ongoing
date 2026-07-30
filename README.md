@@ -12,6 +12,7 @@ O projeto mantém uma página inicial neutra e publica cada proposta em uma rota
 - Vinext e React
 - Cloudflare Workers
 - ChatGPT Sites
+- saída HTML estática para Vercel
 - HTML independente para cada proposta
 - Cabeçalhos `noindex`, `nofollow` e `noarchive`
 - `robots.txt` bloqueando rastreamento do ambiente
@@ -65,11 +66,23 @@ Build de produção:
 npm run build
 ```
 
+Build estático usado pela Vercel:
+
+```bash
+npm run build:vercel
+```
+
+Esse comando recria `vercel-dist/`, copia a página inicial e transforma cada
+arquivo `app/proposals/<slug>.html` na rota limpa `/<slug>`.
+
 ## Publicação
 
 O projeto está vinculado ao Site existente por `.openai/hosting.json`. Ao publicar pelo ChatGPT Sites, edite o projeto `proposta-comercial`; não crie um novo Site.
 
 O domínio personalizado permanece vinculado ao projeto, portanto novas propostas e versões não exigem alteração de DNS.
+
+Na Vercel, o projeto usa `vercel.json` para gerar e publicar `vercel-dist/`.
+Commits na branch `main` podem ser publicados pela integração com o GitHub.
 
 ## Privacidade
 

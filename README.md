@@ -1,89 +1,76 @@
 # ALVK Proposta Ongoing
 
-Microsite de propostas comerciais da ALVK, publicado em:
+Ambiente estático de propostas comerciais da ALVK, publicado pela Vercel a
+partir da branch `main`:
 
 - Produção: https://proposta.alavancador.com.br/
-- Proposta JK Concept: https://proposta.alavancador.com.br/jkconcept
+- JK Concept: https://proposta.alavancador.com.br/jkconcept
 
-O projeto mantém uma página inicial neutra e publica cada proposta em uma rota própria, sem expor uma listagem pública de clientes.
+A página inicial é neutra e cada proposta possui uma rota exclusiva. Não há
+listagem pública de clientes.
 
 ## Arquitetura
 
-- Vinext e React
-- Cloudflare Workers
-- ChatGPT Sites
-- saída HTML estática para Vercel
-- HTML independente para cada proposta
-- Cabeçalhos `noindex`, `nofollow` e `noarchive`
-- `robots.txt` bloqueando rastreamento do ambiente
+- HTML, CSS e JavaScript sem framework ou dependências
+- build estático em Node.js
+- GitHub integrado à Vercel
+- URLs limpas, como `/jkconcept`
+- `noindex`, `nofollow`, `noarchive` e `robots.txt`
+- cache desabilitado para reduzir persistência de conteúdo comercial
 
-## Estrutura das propostas
+## Estrutura
 
-Os documentos ficam em `app/proposals/` e são associados às URLs em `app/proposals/registry.ts`.
-
-Para adicionar uma nova proposta:
-
-1. Salve o HTML como `app/proposals/cliente.html`.
-2. Importe o arquivo em `app/proposals/registry.ts`.
-3. Registre o slug desejado no objeto `proposals`.
-4. Valide a URL localmente em `/cliente`.
-
-Exemplo:
-
-```ts
-import clienteHtml from "./cliente.html?raw";
-
-const proposals: Readonly<Record<string, string>> = {
-  cliente: clienteHtml,
-};
+```text
+app/
+├── home.html
+└── proposals/
+    └── jkconcept.html
+public/
+└── favicon.svg
+scripts/
+└── build.mjs
+tests/
+└── project.test.mjs
+vercel.json
 ```
 
-Rotas não registradas retornam uma página neutra com status `404`.
+## Adicionar uma proposta
+
+1. Salve o HTML em `app/proposals/<slug>.html`.
+2. Use no slug apenas letras minúsculas, números e hífens.
+3. Inclua `lang="pt-BR"`, título, viewport e:
+
+```html
+<meta name="robots" content="noindex,nofollow,noarchive">
+```
+
+4. Execute:
+
+```bash
+npm test
+```
+
+5. Abra um PR. Após o merge na `main`, a Vercel publica a nova rota
+   automaticamente em `https://proposta.alavancador.com.br/<slug>`.
+
+Não é necessário registrar o slug em outro arquivo: o build encontra
+automaticamente todos os arquivos `.html` em `app/proposals/`.
 
 ## Desenvolvimento
 
-Requisitos:
-
-- Node.js `>=22.13.0`
-- Linux com `flock`, `curl` e GNU `timeout`
-
-Instalação e validação:
+Requisito: Node.js 20 ou superior.
 
 ```bash
 npm ci
 npm test
 ```
 
-Desenvolvimento local:
-
-```bash
-npm run dev
-```
-
-Build de produção:
-
-```bash
-npm run build
-```
-
-Build estático usado pela Vercel:
-
-```bash
-npm run build:vercel
-```
-
-Esse comando recria `vercel-dist/`, copia a página inicial e transforma cada
-arquivo `app/proposals/<slug>.html` na rota limpa `/<slug>`.
-
-## Publicação
-
-O projeto está vinculado ao Site existente por `.openai/hosting.json`. Ao publicar pelo ChatGPT Sites, edite o projeto `proposta-comercial`; não crie um novo Site.
-
-O domínio personalizado permanece vinculado ao projeto, portanto novas propostas e versões não exigem alteração de DNS.
-
-Na Vercel, o projeto usa `vercel.json` para gerar e publicar `vercel-dist/`.
-Commits na branch `main` podem ser publicados pela integração com o GitHub.
+O build gera `vercel-dist/`, que pode ser servido por qualquer servidor
+estático.
 
 ## Privacidade
 
-As propostas não devem ser incluídas em sitemap ou navegação pública. `noindex` reduz exposição em mecanismos de busca, mas não substitui autenticação. Conteúdo comercial sensível deve utilizar controle de acesso apropriado.
+As propostas não entram em sitemap ou navegação pública. `noindex` reduz a
+exposição em mecanismos de busca, mas não restringe acesso direto. Documentos
+que exijam confidencialidade real devem utilizar proteção por senha ou controle
+de acesso na Vercel.

@@ -1,0 +1,8 @@
+.openai
+.wrangler
+.sites-runtime
+dist
+node_modules
+outputs
+vercel-dist
+work

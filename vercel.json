@@ -1,8 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run build:vercel",
+  "buildCommand": "npm run build",
   "outputDirectory": "vercel-dist",
   "cleanUrls": true,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/(.*)",
@@ -14,6 +15,10 @@
         {
           "key": "Content-Security-Policy",
           "value": "frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com https://chat.openai.com https://*.openai.com"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), geolocation=(), microphone=()"
         },
         {
           "key": "Referrer-Policy",

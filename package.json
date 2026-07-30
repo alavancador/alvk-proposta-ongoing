@@ -5,7 +5,7 @@
   "description": "Ambiente estático de propostas comerciais da ALVK.",
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": "24.x"
   },
   "scripts": {
     "build": "node scripts/build.mjs",

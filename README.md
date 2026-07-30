@@ -58,7 +58,7 @@ automaticamente todos os arquivos `.html` em `app/proposals/`.
 
 ## Desenvolvimento
 
-Requisito: Node.js 20 ou superior.
+Requisito: Node.js 24.
 
 ```bash
 npm ci

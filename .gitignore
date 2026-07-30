@@ -1,2 +1,17 @@
-# Google App Engine generated folder
-appengine-generated/
+# macOS
+.DS_Store
+**/.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+**/Icon?
+._*
+**/._*
+
+# Sistema / temporários
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+*.log

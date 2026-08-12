@@ -450,8 +450,12 @@ var proposta = {
   cardFeeFixed: 0.49,
   cardInstallments: 12,
 
-  anticipationNetFactor: 5977.46 / 6799,
-  installmentRoundStep: 10,  
+anticipationMonthlyPercentage: 1.74,
+firstInstallmentReceiptDays: 32,
+installmentIntervalDays: 30,
+financialMonthDays: 30,
+
+installmentRoundStep: 10,
 
   approvalEmail: 'contato@alavancador.com.br',
   approvalSubject: 'Aprovação da proposta — Bird Style',
@@ -471,12 +475,41 @@ var pixValue =
 var cardFeeRate =
   proposta.cardFeePercentage / 100;
 
-var valueBeforeCardFees =
-  totalValue / proposta.anticipationNetFactor;
+var anticipationMonthlyRate =
+  proposta.anticipationMonthlyPercentage / 100;
+
+var anticipationEffectiveRate = 0;
+
+for(
+  var installmentIndex = 0;
+  installmentIndex < proposta.cardInstallments;
+  installmentIndex++
+){
+  var receiptDays =
+    proposta.firstInstallmentReceiptDays +
+    installmentIndex * proposta.installmentIntervalDays;
+
+  var anticipationMonths =
+    receiptDays / proposta.financialMonthDays;
+
+  anticipationEffectiveRate +=
+    (
+      anticipationMonthlyRate *
+      anticipationMonths
+    ) / proposta.cardInstallments;
+}
+
+var totalEffectiveRate =
+  cardFeeRate +
+  anticipationEffectiveRate;
+
+if(totalEffectiveRate >= 1){
+  throw new Error('As taxas configuradas tornam a cobrança inválida.');
+}
 
 var cardTotalBeforeRounding =
-  (valueBeforeCardFees + proposta.cardFeeFixed) /
-  (1 - cardFeeRate);
+  (totalValue + proposta.cardFeeFixed) /
+  (1 - totalEffectiveRate);
 
 var installmentBeforeRounding =
   cardTotalBeforeRounding /

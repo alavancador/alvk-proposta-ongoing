@@ -451,11 +451,9 @@ var proposta = {
   cardInstallments: 12,
 
 anticipationMonthlyPercentage: 1.74,
-firstInstallmentReceiptDays: 32,
+firstAnticipationPeriodDays: 35,
 installmentIntervalDays: 30,
 financialMonthDays: 30,
-
-installmentRoundStep: 10,
 
   approvalEmail: 'contato@alavancador.com.br',
   approvalSubject: 'Aprovação da proposta — Bird Style',
@@ -472,12 +470,20 @@ var totalValue = proposta.serviceValue;
 var pixValue =
   totalValue * (1 - proposta.pixDiscountPercentage / 100);
 
+/*
+ * O líquido desejado no cartão é igual ao valor do Pix.
+ */
+var desiredCardNetValue = pixValue;
+
 var cardFeeRate =
   proposta.cardFeePercentage / 100;
 
 var anticipationMonthlyRate =
   proposta.anticipationMonthlyPercentage / 100;
 
+/*
+ * Calcula o custo médio da antecipação das 12 parcelas.
+ */
 var anticipationEffectiveRate = 0;
 
 for(
@@ -485,12 +491,12 @@ for(
   installmentIndex < proposta.cardInstallments;
   installmentIndex++
 ){
-  var receiptDays =
-    proposta.firstInstallmentReceiptDays +
+  var anticipationDays =
+    proposta.firstAnticipationPeriodDays +
     installmentIndex * proposta.installmentIntervalDays;
 
   var anticipationMonths =
-    receiptDays / proposta.financialMonthDays;
+    anticipationDays / proposta.financialMonthDays;
 
   anticipationEffectiveRate +=
     (
@@ -499,37 +505,43 @@ for(
     ) / proposta.cardInstallments;
 }
 
-var totalEffectiveRate =
-  cardFeeRate +
+/*
+ * O desconto da antecipação é calculado sobre o valor
+ * final cobrado do cliente, já com o repasse do cartão.
+ */
+var grossUpDenominator =
+  1 -
+  cardFeeRate -
   anticipationEffectiveRate;
 
-if(totalEffectiveRate >= 1){
+if(grossUpDenominator <= 0){
   throw new Error('As taxas configuradas tornam a cobrança inválida.');
 }
 
-// var cardTotalBeforeRounding =
-//   (totalValue + proposta.cardFeeFixed) /
-//   (1 - totalEffectiveRate);
-var cardTotalBeforeRounding =
-  (pixValue + proposta.cardFeeFixed) /
-  (1 - totalEffectiveRate);  
-
-var installmentBeforeRounding =
-  cardTotalBeforeRounding /
-  proposta.cardInstallments;
-
-// var cardInstallmentValue =
-//   Math.round(
-//     installmentBeforeRounding /
-//     proposta.installmentRoundStep
-//   ) * proposta.installmentRoundStep;
-var cardInstallmentValue =
-  cardTotalBeforeRounding /
-  proposta.cardInstallments;  
-
+/*
+ * Valor final que aparecerá para o cliente no cartão.
+ */
 var cardTotalValue =
-  cardInstallmentValue *
-  proposta.cardInstallments;
+  (desiredCardNetValue + proposta.cardFeeFixed) /
+  grossUpDenominator;
+
+var cardInstallmentValue =
+  cardTotalValue / proposta.cardInstallments;
+
+/*
+ * Valor que deve ser informado no campo
+ * “Total a cobrar” do Asaas com o repasse ativado.
+ */
+var asaasChargeValue =
+  cardTotalValue * (1 - cardFeeRate) -
+  proposta.cardFeeFixed;
+
+/*
+ * Conferência do líquido após antecipação.
+ */
+var anticipatedNetValue =
+  asaasChargeValue -
+  cardTotalValue * anticipationEffectiveRate;
 
 var render = {
   proposalDate: proposta.proposalDate,
@@ -553,7 +565,7 @@ var render = {
     brl.format(cardInstallmentValue),
 
   cardTotalLabel:
-    'Total no cartão: ' +
+    'Total de ' +
     brl.format(cardTotalValue)
 };
 

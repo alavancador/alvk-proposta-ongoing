@@ -200,7 +200,7 @@ ul{margin:0;padding:0;list-style:none}
 .price-total strong{display:block;margin-top:8px;color:var(--alvk-coral-light);font-size:clamp(44px,5vw,70px);font-weight:800;letter-spacing:-.05em;line-height:1}
 .included{margin-top:18px;color:var(--alvk-muted-dark);font-size:12.5px}
 .payments{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
-.pay{padding:22px;border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-md);background:rgba(255,255,255,.025)}
+.pay{padding:20px;border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-md);background:rgba(255,255,255,.025)}
 .pay small{
   display:block;
   margin-top:5px;
@@ -412,8 +412,8 @@ ul{margin:0;padding:0;list-style:none}
     <div class="pay">
       <b><span data-cfg="cardInstallmentsLabel">Parcelado no cartão</span></b>
       <span>
-        <strong data-cfg="cardInstallmentLabel">12x de R$ 520,82</strong>
-        <small data-cfg="cardTotalLabel">Total de R$ 6.249,86</small>
+        <strong data-cfg="cardInstallmentLabel">12x de R$ 670,00</strong>
+        <small data-cfg="cardTotalLabel">Total de R$ 8.040,00</small>
       </span>
     </div>
   </div>
@@ -450,6 +450,9 @@ var proposta = {
   cardFeeFixed: 0.49,
   cardInstallments: 12,
 
+  anticipationNetFactor: 5977.46 / 6799,
+  installmentRoundStep: 10,  
+
   approvalEmail: 'contato@alavancador.com.br',
   approvalSubject: 'Aprovação da proposta — Bird Style',
   approvalBody: 'Olá, Breendel. Analisamos a proposta de implantação e lançamento do e-commerce da Bird Style e gostaríamos de prosseguir com o projeto.'
@@ -468,11 +471,26 @@ var pixValue =
 var cardFeeRate =
   proposta.cardFeePercentage / 100;
 
-var cardTotalValue =
-  (totalValue + proposta.cardFeeFixed) / (1 - cardFeeRate);
+var valueBeforeCardFees =
+  totalValue / proposta.anticipationNetFactor;
+
+var cardTotalBeforeRounding =
+  (valueBeforeCardFees + proposta.cardFeeFixed) /
+  (1 - cardFeeRate);
+
+var installmentBeforeRounding =
+  cardTotalBeforeRounding /
+  proposta.cardInstallments;
 
 var cardInstallmentValue =
-  cardTotalValue / proposta.cardInstallments;
+  Math.round(
+    installmentBeforeRounding /
+    proposta.installmentRoundStep
+  ) * proposta.installmentRoundStep;
+
+var cardTotalValue =
+  cardInstallmentValue *
+  proposta.cardInstallments;
 
 var render = {
   proposalDate: proposta.proposalDate,

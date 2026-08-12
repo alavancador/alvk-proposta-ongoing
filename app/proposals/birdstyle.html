@@ -507,19 +507,25 @@ if(totalEffectiveRate >= 1){
   throw new Error('As taxas configuradas tornam a cobrança inválida.');
 }
 
+// var cardTotalBeforeRounding =
+//   (totalValue + proposta.cardFeeFixed) /
+//   (1 - totalEffectiveRate);
 var cardTotalBeforeRounding =
-  (totalValue + proposta.cardFeeFixed) /
-  (1 - totalEffectiveRate);
+  (pixValue + proposta.cardFeeFixed) /
+  (1 - totalEffectiveRate);  
 
 var installmentBeforeRounding =
   cardTotalBeforeRounding /
   proposta.cardInstallments;
 
+// var cardInstallmentValue =
+//   Math.round(
+//     installmentBeforeRounding /
+//     proposta.installmentRoundStep
+//   ) * proposta.installmentRoundStep;
 var cardInstallmentValue =
-  Math.round(
-    installmentBeforeRounding /
-    proposta.installmentRoundStep
-  ) * proposta.installmentRoundStep;
+  cardTotalBeforeRounding /
+  proposta.cardInstallments;  
 
 var cardTotalValue =
   cardInstallmentValue *

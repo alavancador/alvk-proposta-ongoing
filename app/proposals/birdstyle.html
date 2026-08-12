@@ -201,9 +201,22 @@ ul{margin:0;padding:0;list-style:none}
 .included{margin-top:18px;color:var(--alvk-muted-dark);font-size:12.5px}
 .payments{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
 .pay{padding:22px;border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-md);background:rgba(255,255,255,.025)}
+.pay small{
+  display:block;
+  margin-top:5px;
+  color:var(--alvk-muted-dark);
+  font-size:11px;
+  line-height:1.45;
+}  
 .pay b{display:block;color:var(--alvk-snow);font-size:30px;font-weight:800}.pay span{display:block;margin-top:6px;color:var(--alvk-muted-dark);font-size:12px}.pay span strong{color:var(--alvk-snow)}
 .extras{margin-top:24px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);color:var(--alvk-muted-dark);font-size:12.5px}
 .cta-box{position:relative;overflow:hidden;margin-top:18px;padding:32px;border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-lg);background:var(--alvk-snow);color:var(--text)}
+.investment > .cta-box{
+  grid-column:1 / -1;
+  width:100%;
+  max-width:none;
+  box-sizing:border-box;
+}  
 .investment > .cta-box{
   grid-column:1 / -1;
   width:100%;
@@ -365,16 +378,56 @@ ul{margin:0;padding:0;list-style:none}
 
 <section class="sec sec--dark" id="investimento">
   <div class="wrap investment">
-    <div data-reveal><span class="kicker">Investimento</span><h2 class="title title--sm">Uma rota clara para colocar a Bird Style no ar e em evolução.</h2><p class="lead">O investimento cobre implantação, personalização, integrações previstas, testes, treinamento, lançamento do MVP e refinamentos dentro do Tema.</p></div>
+    <div data-reveal><span class="kicker">Investimento</span><h2 class="title title--sm">Uma rota clara para colocar a Bird Style no ar e em evolução.</h2><p class="lead">O investimento contempla implantação, personalização visual, integrações previstas, testes, treinamento, lançamento do MVP e refinamentos dentro do escopo acordado.</p></div>
     <div class="delay-100" data-reveal>
-      <div class="pricebox">
-        <div class="price-row"><span>Implantação e lançamento faseado</span><strong data-cfg="serviceValue">R$ 6.799,00</strong></div>
-        <div class="price-row"><span>Customização UI/UX do Tema</span><strong data-cfg="themeValue">Incluso</strong></div>
-        <div class="price-total"><small>Investimento total</small><strong data-cfg="totalValue">R$ 6.799,00</strong></div>
-        <p class="included">A mensalidade do plano Nuvemshop é contratada separadamente pela Bird Style.</p>
-        <div class="payments"><div class="pay"><b><span data-cfg="initialPercentage">60%</span></b><span><strong data-cfg="initialValue">R$ 4.079,40</strong><br>na aprovação e início do projeto</span></div><div class="pay"><b><span data-cfg="finalPercentage">40%</span></b><span><strong data-cfg="finalValue">R$ 2.719,60</strong><br>na conclusão, antes da publicação final</span></div></div><p class="extras"><strong>Não incluídos:</strong> mensalidade Nuvemshop; apps de afiliados, cashback ou app mobile; taxas de gateway e lojas de aplicativos; fretes; mídia paga; produção de fotos; redação individual dos 236 produtos; API própria; reprodução integral do layout anterior; e sustentação recorrente pós-projeto.</p></div>      
+<div class="pricebox">
+  <div class="price-row">
+    <span>Setup completo</span>
+    <strong data-cfg="serviceValue">R$ 6.000,00</strong>
+  </div>
+
+  <div class="price-row">
+    <span>Customização UI/UX</span>
+    <strong data-cfg="customizationValue">Incluída</strong>
+  </div>
+
+  <div class="price-total">
+    <small>Investimento total</small>
+    <strong data-cfg="totalValue">R$ 6.000,00</strong>
+  </div>
+
+  <p class="included">
+    A mensalidade do plano Nuvemshop e os serviços de terceiros são contratados separadamente pela Bird Style.
+  </p>
+
+  <div class="payments">
+    <div class="pay">
+      <b data-cfg="pixDiscountLabel">10% de desconto</b>
+      <span>
+        <strong data-cfg="pixValue">R$ 5.400,00</strong><br>
+        no pagamento à vista via Pix
+      </span>
     </div>
-    <div class="cta-box"><h3>O próximo passo é colocar a Bird Style em rota de lançamento.</h3><ol><li>Aprovação da proposta</li><li>Pagamento da entrada</li><li>Kickoff e liberação dos acessos</li></ol><a class="btn btn--coral" id="approveBtn" href="#" rel="noopener">Aprovar proposta</a></div>
+
+    <div class="pay">
+      <b data-cfg="cardInstallmentsLabel">Em até 12x</b>
+      <span>
+        <strong data-cfg="cardInstallmentLabel">12x de R$ 520,82</strong>
+        <small data-cfg="cardTotalLabel">Total no cartão: R$ 6.249,86</small>
+      </span>
+    </div>
+  </div>
+
+  <p class="included">
+    O valor parcelado considera o repasse da taxa de cartão de 3,99% + R$ 0,49. A antecipação de recebíveis não está incluída. Os valores podem sofrer pequenos ajustes de centavos no momento da cobrança.
+  </p>
+
+  <p class="extras">
+    <strong>Não incluídos:</strong> mensalidade Nuvemshop; aplicativos de afiliados, cashback ou aplicativo mobile; taxas de antecipação; fretes; mídia paga; produção de fotos; redação individual dos 236 produtos; integrações via API própria; reprodução integral do layout anterior; desenvolvimentos adicionais não previstos; e sustentação recorrente após o projeto.
+  </p>
+</div>      
+    </div>
+    <div class="cta-box"><h3>O próximo passo é colocar a Bird Style em rota de lançamento.</h3><ol><li>Aprovação da proposta</li><li>Escolha e confirmação da forma de pagamento</li><li>Kickoff e liberação dos acessos</li></ol><a class="btn btn--coral" id="approveBtn" href="#" rel="noopener">Aprovar proposta</a></div>
   </div>
 </section>
 </main>
@@ -384,21 +437,76 @@ ul{margin:0;padding:0;list-style:none}
 <script>
 (function(){
   'use strict';
-  var proposta={proposalDate:'12 de agosto de 2026',
-                deadline:'MVP em 10–15 dias',
-                serviceValue:6799,
-                themeValue:0,
-                totalValue:6799,
-                initialPercentage:60,
-                finalPercentage:40,
-                initialValue:4079.40,
-                finalValue:2719.60,
-                approvalEmail:'contato@alavancador.com.br',
-                approvalSubject:'Aprovação da proposta — Bird Style',
-                approvalBody:'Olá, Breendel. Analisamos a proposta de implantação e lançamento do e-commerce da Bird Style e gostaríamos de prosseguir com o projeto.'};
-  var brl=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
-  var render={proposalDate:proposta.proposalDate,deadline:proposta.deadline,serviceValue:brl.format(proposta.serviceValue),themeValue:brl.format(proposta.themeValue),totalValue:brl.format(proposta.totalValue),initialValue:brl.format(proposta.initialValue),finalValue:brl.format(proposta.finalValue),initialPercentage:proposta.initialPercentage+'%',finalPercentage:proposta.finalPercentage+'%'};
-  document.querySelectorAll('[data-cfg]').forEach(function(el){var k=el.dataset.cfg;if(render[k]!==undefined)el.textContent=render[k]});
+var proposta = {
+  proposalDate: '12 de agosto de 2026',
+  deadline: 'MVP em 10–15 dias',
+
+  serviceValue: 6000,
+  customizationValue: 'Incluída',
+
+  pixDiscountPercentage: 10,
+
+  cardFeePercentage: 3.99,
+  cardFeeFixed: 0.49,
+  cardInstallments: 12,
+
+  approvalEmail: 'contato@alavancador.com.br',
+  approvalSubject: 'Aprovação da proposta — Bird Style',
+  approvalBody: 'Olá, Breendel. Analisamos a proposta de implantação e lançamento do e-commerce da Bird Style e gostaríamos de prosseguir com o projeto.'
+};
+
+var brl = new Intl.NumberFormat('pt-BR', {
+  style: 'currency',
+  currency: 'BRL'
+});
+
+var totalValue = proposta.serviceValue;
+
+var pixValue =
+  totalValue * (1 - proposta.pixDiscountPercentage / 100);
+
+var cardFeeRate =
+  proposta.cardFeePercentage / 100;
+
+var cardTotalValue =
+  (totalValue + proposta.cardFeeFixed) / (1 - cardFeeRate);
+
+var cardInstallmentValue =
+  cardTotalValue / proposta.cardInstallments;
+
+var render = {
+  proposalDate: proposta.proposalDate,
+  deadline: proposta.deadline,
+
+  serviceValue: brl.format(proposta.serviceValue),
+  customizationValue: proposta.customizationValue,
+  totalValue: brl.format(totalValue),
+
+  pixDiscountLabel:
+    proposta.pixDiscountPercentage + '% de desconto',
+
+  pixValue:
+    brl.format(pixValue),
+
+  cardInstallmentsLabel:
+    'Em até ' + proposta.cardInstallments + 'x',
+
+  cardInstallmentLabel:
+    proposta.cardInstallments + 'x de ' +
+    brl.format(cardInstallmentValue),
+
+  cardTotalLabel:
+    'Total no cartão: ' +
+    brl.format(cardTotalValue)
+};
+
+document.querySelectorAll('[data-cfg]').forEach(function(el){
+  var key = el.dataset.cfg;
+
+  if(render[key] !== undefined){
+    el.textContent = render[key];
+  }
+});
   var approveBtn=document.getElementById('approveBtn');
   approveBtn.href='mailto:'+proposta.approvalEmail+'?subject='+encodeURIComponent(proposta.approvalSubject)+'&body='+encodeURIComponent(proposta.approvalBody);
   var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;

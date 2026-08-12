@@ -367,9 +367,11 @@ ul{margin:0;padding:0;list-style:none}
   <div class="wrap investment">
     <div data-reveal><span class="kicker">Investimento</span><h2 class="title title--sm">Uma rota clara para colocar a Bird Style no ar e em evolução.</h2><p class="lead">O investimento cobre implantação, personalização, integrações previstas, testes, treinamento, lançamento do MVP e refinamentos dentro do Tema.</p></div>
     <div class="delay-100" data-reveal>
-      <div class="pricebox"><div class="price-row"><span>Implantação e lançamento faseado</span><strong data-cfg="serviceValue">R$ 6.799,00</strong></div>  
+      <div class="pricebox">
+        <div class="price-row"><span>Implantação e lançamento faseado</span><strong data-cfg="serviceValue">R$ 6.799,00</strong></div>
+        <div class="price-row"><span>Customização UI/UX do Tema</span><strong data-cfg="themeValue">Incluso</strong></div>
         <div class="price-total"><small>Investimento total</small><strong data-cfg="totalValue">R$ 6.799,00</strong></div>
-        <p class="included">O Tema Customizado está incluído no total. A mensalidade do plano Nuvemshop é contratada separadamente pela Bird Style.</p>
+        <p class="included">A mensalidade do plano Nuvemshop é contratada separadamente pela Bird Style.</p>
         <div class="payments"><div class="pay"><b><span data-cfg="initialPercentage">60%</span></b><span><strong data-cfg="initialValue">R$ 4.079,40</strong><br>na aprovação e início do projeto</span></div><div class="pay"><b><span data-cfg="finalPercentage">40%</span></b><span><strong data-cfg="finalValue">R$ 2.719,60</strong><br>na conclusão, antes da publicação final</span></div></div><p class="extras"><strong>Não incluídos:</strong> mensalidade Nuvemshop; apps de afiliados, cashback ou app mobile; taxas de gateway e lojas de aplicativos; fretes; mídia paga; produção de fotos; redação individual dos 236 produtos; API própria; reprodução integral do layout anterior; e sustentação recorrente pós-projeto.</p></div>      
     </div>
     <div class="cta-box"><h3>O próximo passo é colocar a Bird Style em rota de lançamento.</h3><ol><li>Aprovação da proposta</li><li>Pagamento da entrada</li><li>Kickoff e liberação dos acessos</li></ol><a class="btn btn--coral" id="approveBtn" href="#" rel="noopener">Aprovar proposta</a></div>
@@ -377,12 +379,23 @@ ul{margin:0;padding:0;list-style:none}
 </section>
 </main>
 
-<footer class="footer"><div class="wrap footer__grid"><div><span class="wordmark" role="img" aria-label="ALVK">ALVK<span class="wordmark__dot" aria-hidden="true"></span></span><p>Estratégia, tecnologia e performance para e-commerces.</p></div><div class="footer__right">Proposta preparada exclusivamente para Bird Style.<br><span data-cfg="proposalDate">12 de agosto de 2026</span> · Vila Velha, ES</div></div><div class="wrap footer__bottom"><span>© 2026 Alavancador Soluções Digitais LTDA. Todos os direitos reservados.</span><span>Breendel Lauret · contato@alvk.com.br</span></div></footer>
+<footer class="footer"><div class="wrap footer__grid"><div><span class="wordmark" role="img" aria-label="ALVK">ALVK<span class="wordmark__dot" aria-hidden="true"></span></span><p>Estratégia, tecnologia e performance para e-commerces.</p></div><div class="footer__right">Proposta preparada exclusivamente para Bird Style.<br><span data-cfg="proposalDate">12 de agosto de 2026</span> · Vila Velha, ES</div></div><div class="wrap footer__bottom"><span>© 2026 Alavancador Soluções Digitais LTDA. Todos os direitos reservados.</span><span>Breendel Lauret · contato@alavancador.com.br</span></div></footer>
 
 <script>
 (function(){
   'use strict';
-  var proposta={proposalDate:'12 de agosto de 2026',deadline:'MVP em 10–15 dias',serviceValue:6000,themeValue:799,totalValue:6799,initialPercentage:60,finalPercentage:40,initialValue:4079.40,finalValue:2719.60,approvalEmail:'contato@alvk.com.br',approvalSubject:'Aprovação da proposta — Bird Style',approvalBody:'Olá, Breendel. Analisamos a proposta de implantação e lançamento do e-commerce da Bird Style e gostaríamos de prosseguir com o projeto.'};
+  var proposta={proposalDate:'12 de agosto de 2026',
+                deadline:'MVP em 10–15 dias',
+                serviceValue:6799,
+                themeValue:0,
+                totalValue:6799,
+                initialPercentage:60,
+                finalPercentage:40,
+                initialValue:4079.40,
+                finalValue:2719.60,
+                approvalEmail:'contato@alavancador.com.br',
+                approvalSubject:'Aprovação da proposta — Bird Style',
+                approvalBody:'Olá, Breendel. Analisamos a proposta de implantação e lançamento do e-commerce da Bird Style e gostaríamos de prosseguir com o projeto.'};
   var brl=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
   var render={proposalDate:proposta.proposalDate,deadline:proposta.deadline,serviceValue:brl.format(proposta.serviceValue),themeValue:brl.format(proposta.themeValue),totalValue:brl.format(proposta.totalValue),initialValue:brl.format(proposta.initialValue),finalValue:brl.format(proposta.finalValue),initialPercentage:proposta.initialPercentage+'%',finalPercentage:proposta.finalPercentage+'%'};
   document.querySelectorAll('[data-cfg]').forEach(function(el){var k=el.dataset.cfg;if(render[k]!==undefined)el.textContent=render[k]});
